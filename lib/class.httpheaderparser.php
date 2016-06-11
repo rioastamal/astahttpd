@@ -2,11 +2,11 @@
 /**
  * @filesource
  */
- 
+
 /**
  * Class for parsing HTTP header request
  * - Created on Sat, 19 Jan 2008 20:47:09 GMT+7
- * - Updated on Sun, 24 Feb 2008 13:16:12 GMT+7 
+ * - Updated on Sun, 24 Feb 2008 13:16:12 GMT+7
  *
  * @package       astahttpd
  * @subpackage    lib
@@ -71,14 +71,14 @@ class HttpHeaderParser {
     * @var string
     */
    private $pathTranslated = null;  // base dir + pathinfo
-   
+
    /**
     * Constructor
     *
     * @param string $header         client header
     */
    public function __construct($header) {
-      $this->postData = "";   
+      $this->postData = "";
       $this->extractHeader($header);
       $this->requestUri = $this->getRequest(1);
       $this->setScriptName($this->requestUri);
@@ -87,7 +87,7 @@ class HttpHeaderParser {
       $this->pathTranslated = '';
       $this->indexPage = HttpServer::getAwsConf('index_page');
    }
-   
+
    /**
     * method to set/change default index page name
     *
@@ -100,7 +100,7 @@ class HttpHeaderParser {
       }
       $this->indexPage = $aPage;
    }
-   
+
    /**
     * method to get default index page name
     *
@@ -114,7 +114,7 @@ class HttpHeaderParser {
          return implode(" ", $this->indexPage);
       }
    }
-   
+
    /**
     * Method to extract some values from HTTP header request. The main
     * purpose of this method is to give value to member data:
@@ -129,16 +129,16 @@ class HttpHeaderParser {
       $oriheader = $header;
       $header = reset(explode("\r\n\r\n", trim($header)));
       $header = explode("\r\n", trim($header));
-      
+
       // get postdata
       // $this->postData = end($header);
       // print("FROM EXTRACT".$this->postData);
       // reset($header);
       $temp = explode("\r\n\r\n", $oriheader, 2);
       $this->postData = rtrim(end($temp));
-      
+
       // HttpServer::liveDebug("POST DATA: \n{$this->postData}\n");
-      
+
       $this->request = trim(array_shift($header));
       $result = null;
       foreach ($header as $line) {
@@ -148,7 +148,7 @@ class HttpHeaderParser {
       }
       $this->header = $result;
    }
-   
+
    /**
     * method to set/change post data
     *
@@ -158,23 +158,23 @@ class HttpHeaderParser {
    public function setPostData($sData) {
       $this->postData = $sData;
    }
-   
+
    /**
     * method to get posted data
-    * 
+    *
     * @return string
     */
    public function getPostData() {
       // print("POST DATA: ".$this->postData."\n");
       return $this->postData;
    }
-   
+
    /**
     * method to get HTTP request from header (the first line) e.g:
-    * - Request: 
+    * - Request:
     * - "GET / HTTP/1.1"
     * - then
-    * - $this->getRequest(2) 
+    * - $this->getRequest(2)
     * - should return HTTP protocol version like "HTTP/1.1"
     * - (each part is separate by space)
     *
@@ -193,7 +193,7 @@ class HttpHeaderParser {
          );
       }
    }
-   
+
    /**
     * method to get HTTP request type
     *
@@ -215,7 +215,7 @@ class HttpHeaderParser {
             );
       }
    }
-   
+
    /**
     * method to set/change HTTP request URI
     *
@@ -225,16 +225,16 @@ class HttpHeaderParser {
    public function setRequestUri($sUri) {
       $this->requestUri = $sUri;
    }
-   
+
    /**
     * method to get HTTP request URI
-    * 
+    *
     * @return string
     */
    public function getRequestUri() {
       return $this->requestUri;
    }
-   
+
    /**
     * method to set/change URL query string
     *
@@ -247,9 +247,9 @@ class HttpHeaderParser {
          $this->queryString = $qMark[1];
       } else {
          $this->queryString = '';
-      }   
+      }
    }
-   
+
    /**
     * method to get URL query string
     *
@@ -258,12 +258,12 @@ class HttpHeaderParser {
    public function getQueryString() {
       return $this->queryString;
    }
-   
+
    /**
     * Method to set/change script name
     *
     * @param string $sName         : script name/uri
-    * @return void     
+    * @return void
     */
    public function setScriptName($sName) {
       $qMark = $this->extractQuestMark($sName);
@@ -273,19 +273,19 @@ class HttpHeaderParser {
          $this->scriptName = $sName;
       }
    }
-   
+
    /**
     * Method to get script name.
     * request Uri, example:
     * Request URI: /foo/bar/dummy.php/another/path
-    * Script Name/foo/bar/dummy.php      
-    * 
+    * Script Name/foo/bar/dummy.php
+    *
     * @return string
    */
    public function getScriptName() {
       return $this->scriptName;
    }
-   
+
    /**
     * static method to check wheter a path is ended with '/'
     *
@@ -298,7 +298,7 @@ class HttpHeaderParser {
       }
       return false;
    }
-   
+
    /**
     * method to set/change PATH_INFO
     *
@@ -308,7 +308,7 @@ class HttpHeaderParser {
    public function setPathInfo($sPath) {
       $this->pathInfo = $sPath;
    }
-   
+
    /**
     * method to get PATH_INFO information
     *
@@ -317,7 +317,7 @@ class HttpHeaderParser {
    public function getPathInfo() {
       return $this->pathInfo;
    }
-   
+
    /**
     * method to set/change PATH_TRANSLATED, e.g:
     *  DOCUMENT_ROOT: /foo/bar
@@ -331,7 +331,7 @@ class HttpHeaderParser {
    public function setPathTranslated($sPath) {
       $this->pathTranslated = $sPath;
    }
-   
+
    /**
     * method to get PATH_TRANSLATED
     *
@@ -340,12 +340,12 @@ class HttpHeaderParser {
    public function getPathTranslated() {
       return $this->pathTranslated;
    }
-   
+
    /**
     * This is the most important method from HeaderParser class.
     * This method translate request URI to real localtion of the file
     * in server
-    * 
+    *
     * @param string $basedir         document root/base directory
     * @return string
     */
@@ -353,39 +353,39 @@ class HttpHeaderParser {
 
       $sdir = new ServerDir($basedir);
       $drive = "";
-      
+
       // request URI without query string, we don't use scriptName since it will modifed
       // later by other part of the script
       $req_no_qs = reset(explode('?', $this->requestUri, 2));
-      
+
       $sfile = new ServerDir(urldecode($req_no_qs));
       $basedir = $sdir->getDir();
       // $file = realpath($file);
-      
+
       // $root = ServerDir::getRootDir($this->getScriptName());
       // $root = ServerDir::getRootDir($this->scriptName);
       // get root directory from REQUEST URI
       $root = ServerDir::getRootDir($sfile->getDir());
       print "___SFILE: $root\n";
-      
+
       // is an alias?
       $i = 0;
       foreach (HttpServer::getAwsConf('alias_dir') as $alias=>$aliasDir) {
          $goToParent = true;
-         if ($alias == $root) {  
+         if ($alias == $root) {
             $basedir = $aliasDir;
-            
+
             // if alias is empty use server root dir
             if (!$basedir) {
                $sdroot = new ServerDir(AWS_ROOT_DIR);
                $basedir = $sdroot->getDir();
-               
+
                $goToParent = false;
             }
 
             HttpServer::liveDebug("ALIAS: $alias = ROOT: $root\n");
             $sdir->setDir($basedir); // change the base directory
-            
+
             // if we don't move to parent directory the requested URL
             // will be doubled e.g: /icons/icons
             if ($goToParent) {
@@ -394,7 +394,7 @@ class HttpHeaderParser {
             break;
          }
       }
-      
+
       // get the real filename not the path info
       $file = ServerDir::getFile($this->scriptName, $basedir, $pathinfo);
       if ($file) {
@@ -411,11 +411,11 @@ class HttpHeaderParser {
          $file = $basedir.$sfile->getDir();
       }
       // $file = $basedir.$this->getScriptName();
-      
-      
+
+
       // $file = realpath($file);
       HttpServer::liveDebug("AFTER: $file\n");
-            
+
       if (!file_exists($file)) {
          throw new HttpException(
             "The requested URL {$this->scriptName} was not found on this server.\n",
@@ -423,7 +423,7 @@ class HttpHeaderParser {
             404
          );
       }
-            
+
       if (!is_readable($file)) {
          throw new HttpException(
             "You do not have permission to access {$this->getScriptName()} on this server.\n",
@@ -431,7 +431,7 @@ class HttpHeaderParser {
             403
          );
       }
-                  
+
       // view the index file if they exists in dir
       if (!is_file($file)) {
          foreach ($this->getIndexPage(true) as $indexfile) {
@@ -441,9 +441,9 @@ class HttpHeaderParser {
             }
          }
       }
-      
+
       $this->requestFile = $file;
-            
+
       // is the file in our base dir
       if (strpos(realpath($file), $basedir) === false) {
          throw new HttpException(
@@ -460,7 +460,7 @@ class HttpHeaderParser {
       }
       return $file;
    }
-   
+
    /**
     * method to get mime type
     *
@@ -474,10 +474,10 @@ class HttpHeaderParser {
             return $mimetype;
          }
       }
-      
+
       return "application/octet-stream"; // default
    }
-   
+
    /**
     * method to get extension of the requested file
     *
@@ -487,7 +487,7 @@ class HttpHeaderParser {
       $path = pathinfo($this->requestFile);
       return $path['extension'];
    }
-   
+
    /**
     * method to get HTTP protocol version request
     *
@@ -496,7 +496,7 @@ class HttpHeaderParser {
    public function getRequestVersion() {
       return $this->getRequest(2);
    }
-   
+
    /**
     * method to get a header from HTTP request, e.g:
     * [OTHER_HEADER]\r\n
@@ -516,7 +516,7 @@ class HttpHeaderParser {
          return '';
       }
    }
-   
+
    /**
     * method to get all HTTP request header
     *
@@ -525,11 +525,11 @@ class HttpHeaderParser {
    public function getAllHeader() {
       return $this->header;
    }
-   
+
    /**
     * Method to split request URI based on question mark '?'. This method
     * primary used for getting script name and path info
-    * 
+    *
     * @param string $uri         Request URI
     * @return mixed
     */
@@ -540,14 +540,12 @@ class HttpHeaderParser {
          return null;
       }
    }
-   
+
    public static function winToUnix($dir) {
       return str_replace("\\", "/", $dir);
    }
-   
+
    public static function UnixToWin($dir) {
       return str_replace("/", "\\", $dir);
    }
 }
-
-?>

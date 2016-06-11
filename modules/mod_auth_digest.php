@@ -105,5 +105,3 @@ final class mod_auth_digest extends Module {
    } // activate()
    
 }
-
-?>

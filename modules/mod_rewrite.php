@@ -124,5 +124,3 @@ class mod_rewrite extends Module {
    }
                 
 }
-
-?>

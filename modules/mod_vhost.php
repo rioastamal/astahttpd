@@ -146,5 +146,3 @@ final class mod_vhost extends Module {
    }
                 
 }
-
-?>

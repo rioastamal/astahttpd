@@ -114,5 +114,3 @@ final class mod_bandwidth extends Module {
    }
    
 }
-
-?>

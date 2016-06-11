@@ -2,11 +2,11 @@
 /**
  * @filesource
  */
- 
+
 /**
  * Class to build an HTML page
  * - Created on Sun, 20 Jan 2008 18:53:43 GMT+7
- * - Updated on Thu, 07 Feb 2008 22:36:30 GMT+7 
+ * - Updated on Thu, 07 Feb 2008 22:36:30 GMT+7
  *
  * @package       astahttpd
  * @subpackage    lib
@@ -24,7 +24,7 @@
  * @property string $js - javascript
  *
  */
- 
+
 class HtmlPage {
    /**
     * @var string
@@ -46,10 +46,10 @@ class HtmlPage {
     * @var string
     */
    private $js = null;
-   
+
    /**
     * Constructor
-    * 
+    *
     * @param string $title          HTML title
     * @param string $body           HTML body
     */
@@ -59,17 +59,17 @@ class HtmlPage {
       $this->docType = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML ';
       $this->docType .= '1.0 Transitional//EN" ';
       $this->docType .= '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'."\n";
-      
+
       $style = "body{ background:#fafafa; color:#333; }\n";
       $style .= "a{ text-decoration:none; color:#002378; }\n";
       $style .= "a:visited{ color: #002378; }a:hover{ font-weight:bold; }\n";
       $style .= ".bold{ font-weight:bold;}.italic{ font-style:italic;}\n";
       $style .= ".underline{ text-decoration:underline;}\n";
-      
+
       $this->css = $style;
       $this->js = '';
    }
-   
+
    /**
     * method to set/change the document title
     *
@@ -79,7 +79,7 @@ class HtmlPage {
    public function setTitle($sTitle) {
       $this->title = $sTitle;
    }
-   
+
    /**
     * method to get document title
     *
@@ -88,7 +88,7 @@ class HtmlPage {
    public function getTitle() {
       return $this->title;
    }
-   
+
    /**
     * method to set/change document type
     *
@@ -98,7 +98,7 @@ class HtmlPage {
    public function setDocType($sDoc) {
       $this->docType = $sDoc;
    }
-   
+
    /**
     * method to get document type
     *
@@ -107,7 +107,7 @@ class HtmlPage {
    public function getDocType() {
       return $this->docType;
    }
-   
+
    /**
     * method to set/change CSS style of the document
     *
@@ -117,7 +117,7 @@ class HtmlPage {
    public function setCss($sCss) {
       $this->css = $sCss;
    }
-   
+
    /**
     * method to get CSS style of the document
     *
@@ -126,7 +126,7 @@ class HtmlPage {
    public function getCss() {
       return $this->css;
    }
-   
+
    /**
     * method to set/change Javascript of the document
     *
@@ -136,7 +136,7 @@ class HtmlPage {
    public function setJs($sJs) {
       $this->js = $sJs;
    }
-   
+
    /**
     * method to get javascript of the document
     *
@@ -145,7 +145,7 @@ class HtmlPage {
    public function getJs() {
       return $this->js;
    }
-   
+
    /**
     * method to set/change document body
     *
@@ -155,7 +155,7 @@ class HtmlPage {
    public function setBody($sBody) {
       $this->body = $sBody;
    }
-   
+
    /**
     * method to get document body
     *
@@ -164,7 +164,7 @@ class HtmlPage {
    public function getBody() {
       return $this->body;
    }
-   
+
    /**
     * method to add CSS, this method does not override previous CSS
     *
@@ -174,7 +174,7 @@ class HtmlPage {
    public function addCss($sCss) {
       $this->css .= $sCss."\n";
    }
-   
+
    /**
     * method to add Javascript, this method does not override previous javascript
     *
@@ -184,7 +184,7 @@ class HtmlPage {
    public function addJs($sJs) {
       $this->js .= $sJs."\n";
    }
-   
+
    /**
     * method to add document bodym this method does not override previous body
     *
@@ -215,5 +215,3 @@ class HtmlPage {
       return $result;
    }
 }
-
-?>

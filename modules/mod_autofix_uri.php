@@ -73,5 +73,3 @@ final class mod_autofix_uri extends Module {
    }
    
 }
-
-?>

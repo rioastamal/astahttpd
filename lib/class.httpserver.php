@@ -18,7 +18,7 @@ include_once(AWS_ROOT_DIR."/modules/module.php");
 /**
  * Class for creating HTTP daemon
  * - Created on Sat, 19 Jan 2008 10:41:32 GMT+7
- * - Updated on Tue, 26 Feb 2008 13:12 GMT+7 
+ * - Updated on Tue, 26 Feb 2008 13:12 GMT+7
  *
  * @package       astahttpd
  * @subpackage    lib
@@ -87,7 +87,7 @@ class HttpServer extends Socket {
     * @var string
     */
    private $hostName = null;
-   
+
    /**
     * Constructor
     *
@@ -95,13 +95,13 @@ class HttpServer extends Socket {
    public function __construct() {
       $port = self::getAwsConf('port');
       $host = self::getAwsConf('host');
-      
+
       $this->setListenPort($port);
       $this->setHost($host);
-      
+
       // parent::__construct($port, $host);
       $this->baseDir = $this->checkDir(self::getAwsConf('doc_root'));
-      
+
       /* SERVER INFORMATION */
       $this->serverName = self::getAwsConf('server_name'); // 'astahttpd';
       $this->serverVersion = '0.1-RC1';
@@ -111,12 +111,12 @@ class HttpServer extends Socket {
       // useless
       // $this->serverTime = gmdate('D, d M Y H:i:s', time()).' GMT';
       /* END SERVER INFORMATION */
-                     
+
       $this->cgiExt = implode(' ', array_keys(self::getAwsConf('cgi_handler')));
-      $this->action = self::getAwsConf('cgi_handler');    
+      $this->action = self::getAwsConf('cgi_handler');
 
    }
-   
+
    /**
     * method to set cgi extension that need to be parsed by server
     *
@@ -126,7 +126,7 @@ class HttpServer extends Socket {
    public function setCgiExt($sExt) {
       $this->cgiExt = $sExt;
    }
-   
+
    /**
     * method to get cgi extension
     *
@@ -135,20 +135,20 @@ class HttpServer extends Socket {
    public function getCgiExt() {
       return $this->cgiExt;
    }
-   
+
    /**
     * static method to get server configuration
-    * 
+    *
     * @param string $confname         : configuration name
     * @return mixed
     */
    public static function getAwsConf($confname) {
       return $GLOBALS['aws_conf'][$confname];
    }
-   
+
    /**
     * method to set executor for cgi script
-    * 
+    *
     * @param string $scriptExt         : extension of script
     * @return string
     */
@@ -161,7 +161,7 @@ class HttpServer extends Socket {
       }
       return "";
    }
-   
+
    /**
     * method to set server name, i.e 'astahttpd'
     *
@@ -171,7 +171,7 @@ class HttpServer extends Socket {
    public function setServerName($sName) {
       $this->serverName = $sName;
    }
-   
+
    /**
     * method to get server name
     *
@@ -180,7 +180,7 @@ class HttpServer extends Socket {
    public function getServerName() {
       return $this->serverName;
    }
-   
+
    /**
     * method to get full server name, complete with
     * version and release status
@@ -191,7 +191,7 @@ class HttpServer extends Socket {
    public function getServerFullName() {
       return $this->serverName.'/'.$this->serverVersion;
    }
-   
+
    /**
     * method to set/change server version, i.e'0.1'
     *
@@ -201,7 +201,7 @@ class HttpServer extends Socket {
    public function setServerVersion($sVer) {
       $this->serverVersion = $sVer;
    }
-   
+
    /**
     * method to get server version
     *
@@ -210,10 +210,10 @@ class HttpServer extends Socket {
    public function getServerVersion() {
       return $this->serverVersion;
    }
-   
+
    /**
     * method to set/change server release status, i.e 'beta2'
-    * 
+    *
     * @deprecated
     * @param sRelease $sRelease         release
     * @return void
@@ -221,7 +221,7 @@ class HttpServer extends Socket {
    public function setServerRelease($sRelease) {
       $this->serverRelease = $sRelease;
    }
-   
+
    /**
     * method to get server release status
     *
@@ -231,10 +231,10 @@ class HttpServer extends Socket {
    public function getServerRelease() {
       return $this->serverRelease;
    }
-   
+
    /**
-    * Method to set/change server host name. Since version 0.1 beta1, 
-    * astahttpd support virtual host, we should use this setter/getter 
+    * Method to set/change server host name. Since version 0.1 beta1,
+    * astahttpd support virtual host, we should use this setter/getter
     * instead of getting host name by function like gethostbyaddr()
     *
     * @param string $sHostName         host name
@@ -243,7 +243,7 @@ class HttpServer extends Socket {
    public function setHostName($sHostName) {
       $this->hostName = $sHostName;
    }
-   
+
    /**
     * method to get server host name
     * @return string
@@ -251,7 +251,7 @@ class HttpServer extends Socket {
    public function getHostName() {
       return $this->hostName;
    }
-   
+
    /**
     * methot to set server date/time based on GMT
     *
@@ -265,7 +265,7 @@ class HttpServer extends Socket {
          $this->serverDate = gmdate('D, d M Y H:i:s', time()).' GMT';
       }
    }
-   
+
    /**
     * method to get server date/time, i.e Mon, 28 Jan 2008 09:17:23 GMT
     *
@@ -279,7 +279,7 @@ class HttpServer extends Socket {
          return $this->serverDate;
       }
    }
-   
+
    /**
     * method to set base directory(document_root) for web server
     *
@@ -289,7 +289,7 @@ class HttpServer extends Socket {
    public function setBaseDir($sDir) {
       $this->baseDir = $sDir;
    }
-   
+
    /**
     * method to get base directory
     * @return string
@@ -297,7 +297,7 @@ class HttpServer extends Socket {
    public function getBaseDir() {
       return $this->baseDir;
    }
-   
+
    /**
     * method to set server signature/footer
     *
@@ -307,7 +307,7 @@ class HttpServer extends Socket {
    public function setFooter($sFoot) {
       $this->footer = $sFoot;
    }
-   
+
    /**
     * method to get server signature
     *
@@ -316,7 +316,7 @@ class HttpServer extends Socket {
    public function getFooter() {
       return $this->footer;
    }
-   
+
    /**
     * method to check whether the given path is directory or not, if not
     * extract the directory name
@@ -331,7 +331,7 @@ class HttpServer extends Socket {
          return dirname($sDir);
       }
    }
-   
+
    /**
     * method to set/change server admin email address
     *
@@ -341,7 +341,7 @@ class HttpServer extends Socket {
    public function setServerAdmin($sEmail) {
       $this->serverAdmin = $sEmail;
    }
-   
+
    /**
     * method to get server admin email address
     *
@@ -350,7 +350,7 @@ class HttpServer extends Socket {
    public function getServerAdmin() {
       return $this->serverAdmin;
    }
-   
+
    /**
     * main method to start the web server daemon
     *
@@ -378,30 +378,30 @@ class HttpServer extends Socket {
       }
       unset($tempMod);
       // ---------------------------------------------------------//
-      
+
       // let's prepare before listeing... :)
       parent::__construct($this->getListenPort(), $this->getHost());
       print ("{$this->serverName} running at {$this->getHost()} ".
              "port {$this->getListenPort()}...\n");
-                  
+
       // $this->serverPid = '/tmp/aws.'.$this->getHost().'.pid';
-      // file_put_contents($this->serverPid, posix_getpid());         
-      
-      $this->unBlockSocket();      
-      $listener = $this->startListen();            
-      
+      // file_put_contents($this->serverPid, posix_getpid());
+
+      $this->unBlockSocket();
+      $listener = $this->startListen();
+
       //----- we make it global so the modules can access it ------//
       global $authConf, $bootTime, $httpServer, $cgi;
-      global $rewEngineConf, $rewriteConf, $bandwidthConf;      
-      
-      $httpServer = $this; // $httpServer will be used in modules         
+      global $rewEngineConf, $rewriteConf, $bandwidthConf;
+
+      $httpServer = $this; // $httpServer will be used in modules
       $bootTime = time();
-      $bandwidthConf = self::getAwsConf('bandwidth'); 
+      $bandwidthConf = self::getAwsConf('bandwidth');
       $rewEngineConf = self::getAwsConf('rewrite_engine');
       $rewriteConf = self::getAwsConf('rewrite');
-      $authConf = self::getAwsConf('auth');         
-      //-----------------------------------------------------------//  
-      
+      $authConf = self::getAwsConf('auth');
+      //-----------------------------------------------------------//
+
       // check base directory, if empty use pwd
       if (!$this->baseDir) {
          $this->baseDir = AWS_ROOT_DIR.DSEP.'htdocs';
@@ -411,50 +411,50 @@ class HttpServer extends Socket {
       // Server signature
       $sFullName = $this->serverName.'/'.$this->serverVersion;
       $signature = self::getAwsConf('server_signature');
-      
-      $signature = str_replace(array("{SERVER_FULL_NAME}", "{HOST}", 
+
+      $signature = str_replace(array("{SERVER_FULL_NAME}", "{HOST}",
                                      "{PORT}", "{TIME}"),
-                              array($sFullName, $this->hostName, 
-                                    $this->getListenPort(), 
+                              array($sFullName, $this->hostName,
+                                    $this->getListenPort(),
                                     $this->getServerDate()),
                               $signature);
       $this->footer = $signature;
-      // $cgi->setEnv('SERVER_SIGNATURE', $this->footer);       
-      
+      // $cgi->setEnv('SERVER_SIGNATURE', $this->footer);
+
       $read_set = array($listener);
       $buffer = array();
       $is_alive_before = false;
       $sock_array = array();
       $buf = array();
       $request_arr = array();
-              
+
       while (1) {
-      
+
          // copy the read_set so it will not be modified by socket_select
          $copy_set = $read_set;
-         
+
          if (@socket_select($copy_set, $w=NULL, $e=NULL, NULL) < 1) {
             print ("NO CONNECTION, trying again...\n");
             continue;
-         } 
-                           
+         }
+
          if (in_array($listener, $copy_set)) {
             // add new client to read_set for furter listening
             $read_set[] = $this->acceptConnection();
-            
+
             self::liveDebug("Connected... (Remote Addr: {$this->getPeerName()})\n");
 
             // remove the listener from copy
             $key = array_search($listener, $copy_set);
             unset($copy_set[$key]);
          }
-         
+
          foreach ($copy_set as $sock_copy) {
-           
+
             //----- we make it global so the modules can access it ------//
             global $request, $responseHeader, $content, $cgiHeader, $htparser;
             global $htbuilder, $postdata, $logger, $staticContent, $cgiEnv, $target;
-            
+
             $request = "";
             $response = "";
             $content = "";
@@ -466,27 +466,27 @@ class HttpServer extends Socket {
             $staticContent = true;
             $cgiEnv = null;
             $target = "";
-                     
+
             // get the data
             // $buf = '';
             $trying = 0;
-            
-            $sock_num = (int)$sock_copy;            
+
+            $sock_num = (int)$sock_copy;
             $sock_array[$sock_num] = $sock_copy;
             $current_sock = $sock_array[$sock_num];
-            
+
             do {
                $buf[$sock_num] = socket_read($current_sock, AWS_READ_BUFF, AWS_REQUEST_DELIM);
                // socket_recv($sock_copy, $buf, AWS_READ_BUFF, 0);
                self::liveDebug( "Buffer left: ".strlen($buf[$sock_num])."\n" );
                $request_arr[$sock_num] .= $buf[$sock_num];
             } while ( ($trying += AWS_READ_BUFF) === strlen($request_arr[$sock_num]) );
-            
+
             // $request = socket_read($sock_copy, 8192*2);
             $request = $request_arr[$sock_num];
-            
+
             // print_r($request_arr);
-            
+
             if ($request === false || strlen($request) == 0) {
                $key = array_search($sock_copy, $read_set);
                unset($sock_array[$sock_num]);
@@ -496,13 +496,13 @@ class HttpServer extends Socket {
                // unset($copy_set[$key]);
                self::liveDebug("Client disconnected.\n");
                continue;
-            }            
-            
-            // keep looking for 
+            }
+
+            // keep looking for
             if (strpos($request, "\r\n\r\n") === false) {
                continue;
             }
-            
+
             $rqtype = substr($request, 0, 10);
             if (strpos($request, 'POST') !== false) {
                $trying = 0;
@@ -512,82 +512,82 @@ class HttpServer extends Socket {
                   // socket_recv($sock_copy, $buf, AWS_READ_BUFF, 0);
                   self::liveDebug( "Buffer left: ".strlen($buf[$sock_num])."\n" );
                   $post_buf .= $buf[$sock_num];
-               } while ( ($trying += AWS_READ_BUFF) === strlen($post_buf) ); 
+               } while ( ($trying += AWS_READ_BUFF) === strlen($post_buf) );
                $request .= $post_buf;
             }
-            
+
             if ($request === false || strlen($request) == 0) {
                $key = array_search($sock_copy, $read_set);
                unset($sock_array[$sock_num]);
                unset($buf[$sock_num]);
                unset($request_arr[$sock_num]);
                unset($read_set[$key]);
-               // unset($copy_set[$key]);               
+               // unset($copy_set[$key]);
                self::liveDebug("Client disconnected.\n");
-               continue;               
+               continue;
             }
-            
+
             // if we goes here we assume the data has been successfully read
             $request_arr[$sock_num] = '';
-            
-            self::liveDebug("Client Request was: \n$request\n\n"); 
-            
+
+            self::liveDebug("Client Request was: \n$request\n\n");
+
             try {
-               $htparser = new HttpHeaderParser($request);                          
+               $htparser = new HttpHeaderParser($request);
             } catch (Exception $e) { }
-            
-            try {  // 200 OK      
+
+            try {  // 200 OK
                $crlf = "\r\n";   // only used when deliver static content
-               
-               $htbuilder = new HttpHeaderMaker();               
+
+               $htbuilder = new HttpHeaderMaker();
                $htbuilder->addHeader('server', $this->getServerFullName());
                $htbuilder->addHeader('date', $this->getServerDate());
-               
+
                // init cycle
                self::loadModules('init_cycle');
-               
+
                $target = $htparser->getRequestFile($this->baseDir);
-               
-               // first cycle 
-               self::loadModules('first_cycle');            
-                          
+
+               // first cycle
+               self::loadModules('first_cycle');
+
                $reqtype = $htparser->getRequestType();
-               
+
                self::liveDebug("BASEDIR FROM HTTPSERVER CLASS: {$this->baseDir}\n");
                self::liveDebug("STATUS CODE: {$htbuilder->getRespStatus()}\n");
-               
+
                // auth modules
                // self::loadModules('auth');
-               
+
                self::liveDebug("REQUEST_URI: {$htparser->getRequestUri()}\n");
                $mime = $htparser->getMimeType();
-               
+
                // parser modules
                // self::loadModules('parser');
                self::loadModules('second_cycle');
-               
+
                // by default server will serves this content
                if (!$staticContent) {
                   $crlf = "";
                }
-               
-               $htbuilder->addHeader('content-length', strlen($content));               
+
+               $htbuilder->addHeader('content-length', strlen($content));
                // load module with lauch type 'after_decode'
-               // self::loadModules('after_decode');               
-              
+               // self::loadModules('after_decode');
+
             } catch (HttpException $e) {
                if ($e->getCode() != 304) {
-                  $hp = new HtmlPage($e->getTitle(), $e->getMessage().$this->footer);               
+                  $hp = new HtmlPage($e->getTitle(), $e->getMessage().$this->footer);
                   $content = $hp->buildPage();
                }
-               
+
                $htbuilder->setRespStatus($e->getCode());
                $htbuilder->addHeader('content-type', 'text/html', true);
                $htbuilder->addHeader('content-length', strlen($content), true);
-               
+
                $e->makeHeader($htbuilder);
                $e->deleteHeader($htbuilder);
-               $cgiHeader = "";    
+               $cgiHeader = "";
             } catch (Exception $e) {
                $err = "astahttpd server was unable to complete your request because".
                      " there is internal server error.\nPlease contact the server".
@@ -595,32 +595,32 @@ class HttpServer extends Socket {
                      " {$this->serverAdmin}</a> and inform them about this error.".
                      "\n\nThe error was:
                      {$e->getMessage()}";
-                     
-               $body = "<h1>Error 500 - Internal Server Error</h1>\n"; 
+
+               $body = "<h1>Error 500 - Internal Server Error</h1>\n";
                $body .= "<span class=\"bold\">".nl2br($err)."</span>";
                $body .= $this->footer;
-               
+
                $hp = new HtmlPage("Error 500 - Internal Server Error", $body);
-               $content = $hp->buildPage();  
-               
+               $content = $hp->buildPage();
+
                $htbuilder->setRespStatus(500);
                $htbuilder->addHeader('content-type', 'text/html', true);
                $htbuilder->addHeader('content-length', strlen($content), true);
                $cgiHeader = "";
             }
-            
+
             if ($htparser->getRequestType() == 'HEAD') {
                // only serve the header
                $content = '';
             }
-            
+
             self::loadModules('last_cycle');
-            
+
             self::liveDebug("QUERY_STRING: {$htparser->getQueryString()}\n");
-            
+
             // This keep-alive still buggy when dealing with HTTP upload
             // so it's better not to use it
-            
+
             //$keep_alive = stripos($request, 'keep-alive');
              //  if ($keep_alive === false) {
                   // $key = array_search($sock_copy, $read_set);
@@ -630,37 +630,37 @@ class HttpServer extends Socket {
                   unset($sock_array[$sock_num]);
                   unset($buf[$sock_num]);
                   unset($request_arr[$sock_num]);
-                  unset($read_set[$key]);                  
+                  unset($read_set[$key]);
                   // unset($copy_set[$key]);
                   // print "----> SOCK: $key - $sock_copy\n";
                   self::liveDebug("Client disconnected(no keep-alive).\n");
                //} else {
-                 // $htbuilder->addHeader('connection', 'keep-alive');  
+                 // $htbuilder->addHeader('connection', 'keep-alive');
                   //$htbuilder->addHeader('keep-alive', 'timeout=15 max=90');
                //}
-            
+
             self::liveDebug("Master ID: $listener\nConnectection ID: $sock_copy\n");
-            
+
             // $this->sendData($responseHeader.$content);
-            $responseHeader = $htbuilder->buildHeader($crlf).$cgiHeader;            
+            $responseHeader = $htbuilder->buildHeader($crlf).$cgiHeader;
             $fullPacket = $responseHeader.$content;
             socket_write($sock_copy, $fullPacket, strlen($fullPacket));
-            
+
             self::liveDebug("\nServer Respose: \r\n$responseHeader");
-            
+
             // back to main configuration not the virtual host
-            $bandwidthConf = self::getAwsConf('bandwidth'); 
+            $bandwidthConf = self::getAwsConf('bandwidth');
             $rewEngineConf = self::getAwsConf('rewrite_engine');
             $rewriteConf = self::getAwsConf('rewrite');
             $authConf = self::getAwsConf('auth');
-                       
+
          } // foreach
       } // while (1)
-          
+
       $this->shutdownSocket();
-      $this->closeSocket();      
+      $this->closeSocket();
    }
-   
+
    /**
     * method to execute modules based by their modCycle value
     *
@@ -676,8 +676,8 @@ class HttpServer extends Socket {
             $module->activate();
          }
       }
-   } // loadModules 
-   
+   } // loadModules
+
    /**
     * method to display current task that astahttpd do (in short: LiveDebug)
     * you can turn it off in configuration by set live_debug = false.
@@ -690,7 +690,5 @@ class HttpServer extends Socket {
          print($mesg);
       }
    }
-   
-}
 
-?>
+}

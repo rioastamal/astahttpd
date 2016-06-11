@@ -62,5 +62,3 @@ final class mod_static extends Module {
       
    }
 }
-
-?>

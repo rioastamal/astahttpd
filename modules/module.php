@@ -228,5 +228,3 @@ abstract class Module {
    public abstract function activate();
    
 }
-
-?>

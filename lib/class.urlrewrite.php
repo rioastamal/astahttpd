@@ -2,7 +2,7 @@
 /**
  * @filesource
  */
- 
+
 /**
  * This class provide simple URL Rewriting
  * - Created on Thu, 31 Jan 2008 23:14:22 GMT+7
@@ -15,7 +15,7 @@
  * @link          http://astahttpd.sourceforge.net/
  * @license       http://opensource.org/licenses/gpl-license.php GNU GPLv3
  * @since         0.1-beta2
- * 
+ *
  * @property string $pattern - pattern to match
  * @property string $target - URL target
  * @property string $uri - Request URI (w/out question string)
@@ -23,7 +23,7 @@
  * L = Last, R = Redirect
  *
  */
- 
+
 class UrlRewrite {
    /**
     * @var string
@@ -41,12 +41,12 @@ class UrlRewrite {
     * @var string
     */
    private $flag = null;
-   
+
    /**
     * Constructor
     *
     * @param string $pat            pattern to match
-    * @param string $tar            URL target 
+    * @param string $tar            URL target
     * @param HttpHeaderParser $htparser      HttpHeaderParser Object
     * @param string $flag            Rewrite Flag
     */
@@ -56,7 +56,7 @@ class UrlRewrite {
       $this->uri = $htparser->getScriptName().$htparser->getPathInfo();
       $this->flag = $flag;
    }
-   
+
    /**
     * method to set/change URL Pattern to match
     *
@@ -66,7 +66,7 @@ class UrlRewrite {
    public function setPattern($sPat) {
       $this->pattern = $sPat;
    }
-   
+
    /**
     * method to get pattern
     *
@@ -75,7 +75,7 @@ class UrlRewrite {
    public function getPattern() {
       return $this->pattern;
    }
-   
+
    /**
     * method to set URL Target
     *
@@ -85,7 +85,7 @@ class UrlRewrite {
    public function setTarget($sTar) {
       $this->pattern = $sTar;
    }
-   
+
    /**
     * method to get URL target
     *
@@ -94,7 +94,7 @@ class UrlRewrite {
    public function getTarget() {
       return $this->target;
    }
-   
+
    /**
     * method to set/change Request Uri (w/out querystring)
     *
@@ -104,7 +104,7 @@ class UrlRewrite {
    public function setUri($h) {
       $this->uri = $h->getScriptName().$h->getPathInfo();
    }
-   
+
    /**
     * method get Request Uri
     *
@@ -113,7 +113,7 @@ class UrlRewrite {
    public function getUri() {
       return $this->uri;
    }
-   
+
    /**
     * method to set/change rewrite flag
     *
@@ -123,7 +123,7 @@ class UrlRewrite {
    public function setFlag($sFlag) {
       $this->flag = $sFlag;
    }
-   
+
    /**
     * method to get rewrite flag
     *
@@ -132,10 +132,10 @@ class UrlRewrite {
    public function getFlag() {
       return $this->flag;
    }
-   
+
    /**
-    * method to get the result 
-    * 
+    * method to get the result
+    *
     * @param string $hostname    hostname of the target URI
     * @return string
     */
@@ -153,12 +153,12 @@ class UrlRewrite {
          return '';
        }
    }
-   
+
    /**
     * method to convert class to string object
     *
     * @return string
-    */ 
+    */
    public function __toString() {
       return "[pattern: {$this->pattern}, ".
              "target: {$this->target}, ".
@@ -166,5 +166,3 @@ class UrlRewrite {
              "flag: {$this->flag}]";
    }
 }
-
-?>

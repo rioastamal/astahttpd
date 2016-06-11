@@ -2,7 +2,7 @@
 /**
  * @filesource
  */
- 
+
 /**
  * Class for writing log to a file
  * - Created on Fri, 01 Feb 2008 10:03:48 GMT+7
@@ -15,18 +15,18 @@
  * @link          http://astahttpd.sourceforge.net/
  * @license       http://opensource.org/licenses/gpl-license.php GNU GPLv3
  * @since         0.1-beta2
- * 
+ *
  * @property string $logData - log data written to file
  * @property string $logFile - File log location
  * @property string $delim - delimiter foreach data in same line
  * @property string $new - new line character, default \n
- * @property integer|float $maxSize - max size of the log file before create 
+ * @property integer|float $maxSize - max size of the log file before create
  * backup file
  * @property integer|float $logSize - current size of the log file
  * @property string $backupDir - backup directory
  *
  */
- 
+
 class Logger {
    private $logData = null;
    private $logFile = null;
@@ -35,7 +35,7 @@ class Logger {
    private $maxSize = null;
    private $logSize = null;
    private $backupDir = null;
-   
+
    /**
     * Contructor
     *
@@ -51,7 +51,7 @@ class Logger {
       $this->logSize = filesize($logFile) / 1024;  // in kb
       $this->backupDir = dirname($logFile);
    }
-   
+
    /**
     * method to set/change log file location
     *
@@ -61,7 +61,7 @@ class Logger {
    public function setlogFile($sPath) {
       $this->logFile = $sPath;
    }
-   
+
    /**
     * method to get log file location
     *
@@ -70,7 +70,7 @@ class Logger {
    public function getLogFile() {
       return $this->logFile;
    }
-   
+
    /**
     * method to add log data (does not overwrite log data on current object
     *
@@ -80,7 +80,7 @@ class Logger {
    public function addLogData($sData) {
       $this->logData .= $this->delim.$sData;
    }
-   
+
    /**
     * method set/change log data
     *
@@ -90,7 +90,7 @@ class Logger {
    public function setLogData($sData) {
       $this->logData = $sData;
    }
-   
+
    /**
     * method to get log data on current object
     *
@@ -99,7 +99,7 @@ class Logger {
    public function getLogData() {
       return $this->logData;
    }
-   
+
    /**
     * method to set/change delimiter
     *
@@ -109,7 +109,7 @@ class Logger {
    public function setDelim($sDel) {
       $this->delim = $sDel;
    }
-   
+
    /**
     * method to get current delimiter used on log file
     *
@@ -118,7 +118,7 @@ class Logger {
    public function getDelim() {
       return $this->delim;
    }
-   
+
    /**
     * method to set/change new line character, i.e "\n"
     * NOTE: USE DOUBLE QUOTE NOT SINGLE QUOTE
@@ -129,7 +129,7 @@ class Logger {
    public function setNewLine($sLine) {
       $this->newLine = $sLine;
    }
-   
+
    /**
     * method get new line character
     *
@@ -138,7 +138,7 @@ class Logger {
    public function getNewLine() {
       return $this->newLine;
    }
-   
+
    /**
     * method to set/change maximum size of log file
     *
@@ -148,7 +148,7 @@ class Logger {
    public function setMaxSize($iSize) {
       $this->maxSize = $iSize;
    }
-   
+
    /**
     * method to get maximum size of log file
     *
@@ -157,7 +157,7 @@ class Logger {
    public function getMaxSize() {
       return $this->maxSize;
    }
-   
+
    /**
     * method to get fize of log file
     *
@@ -166,7 +166,7 @@ class Logger {
    public function getLogSize() {
       return filesize($this->logFile) / 1024;
    }
-   
+
    /**
     * method to set/change path of backup directory
     *
@@ -175,7 +175,7 @@ class Logger {
    public function setBackupDir($sPath) {
       $this->backupDir = $sPath;
    }
-   
+
    /**
     * method to get backup directory path
     *
@@ -184,7 +184,7 @@ class Logger {
    public function getBackupDir() {
       return $this->backupDir;
    }
-   
+
    /**
     * method to write the log data to file
     *
@@ -204,7 +204,7 @@ class Logger {
                file_put_contents($this->logFile, '');
             }
          }
-         
+
          file_put_contents($this->logFile, $this->logData.$this->newLine,
                            FILE_APPEND);
       } else {
@@ -213,4 +213,3 @@ class Logger {
       }
    }
 }
-?>

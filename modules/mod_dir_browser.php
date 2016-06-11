@@ -58,5 +58,3 @@ final class mod_dir_browser extends Module {
    }
    
 }
-
-?>

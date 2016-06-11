@@ -2,7 +2,7 @@
 /**
  * @filesource
  */
- 
+
 /**
  * Class for manipulating server directory
  * - Created on Fri, 18 Jan 2008 11:13:56 GMT+7
@@ -22,7 +22,7 @@
 
 class ServerDir {
    protected $dir = null;
-   
+
    /**
     * Constructor
     *
@@ -32,7 +32,7 @@ class ServerDir {
       $this->dir = $dir;
       $this->fixDirectory();
    }
-   
+
    /**
     * method to set/change current working directory
     *
@@ -43,7 +43,7 @@ class ServerDir {
       $this->dir = $sDir;
       $this->fixDirectory();
    }
-   
+
    /**
     * method to retrieve current working directory
     *
@@ -71,7 +71,7 @@ class ServerDir {
       $replacer = array('', '/');
       $this->dir = preg_replace($replaceme, $replacer, $this->dir);
    }
-   
+
    /**
     * method to move to parent directory e.g:
     * - /home/foo/bar   => /home/foo
@@ -83,7 +83,7 @@ class ServerDir {
       if (!$include_drive) {
         $dsep = '/';
       }
-      
+
       $dirlist = explode($dsep, $this->dir);
       $head = '/';
       if (IS_WINDOWS && $include_drive) {
@@ -91,13 +91,13 @@ class ServerDir {
       } else {
         array_shift($dirlist);
       }
-      
+
       array_pop($dirlist);
       $this->dir = $head.implode($dsep, $dirlist);
       $this->fixDirectory();
       return $this->dir;
    }
-   
+
    /**
     * method to get list of directory
     *
@@ -111,7 +111,7 @@ class ServerDir {
       if ($hidden) {
          return $dirlist;
       }
-      
+
       $newdir = array();
       foreach ($dirlist as $list) { // exclude hidden files
          if (substr($list, 0, 1) != '.') {
@@ -120,10 +120,10 @@ class ServerDir {
       }
       return $newdir;
    }
-   
+
    /**
     * static method to get root directory e.g: /foo/bar => /foo
-    *   
+    *
     * @param string $dir         directory name
     * @return string
    */
@@ -135,7 +135,7 @@ class ServerDir {
       array_shift($dir);
       return '/'.array_shift($dir);
    }
-   
+
    /**
     * static function to get a file from a directory
     * e.g: /home/foo/bar/file.php/rest/path => /file.php
@@ -149,17 +149,17 @@ class ServerDir {
       if ($dir == '/') {
          return $dir;
       }
-      
+
       if (IS_WINDOWS) {
         $dir = str_replace("/", "\\", $dir);
       }
       //print "__DIR WAS: $dir\n";
-      
+
       $temp = explode(DSEP, $dir);
       array_shift($temp);  // chop first element
       $curfile = '';
       $anyFile = false; // flag if there's any file in URI or not
-      
+
       foreach ($temp as $ind=>$file) {
         $curfile .= DSEP.$file;
         //print "___CHECKING BASE: $base\n";
@@ -172,15 +172,13 @@ class ServerDir {
           break;
         }
       }
-      
+
       if (!$anyFile) {
         return '';
       }
-      
+
       $pathinfo = explode($curfile, $dir);
       $rest = end($pathinfo);
       return $curfile;
    }
 }
-
-?>

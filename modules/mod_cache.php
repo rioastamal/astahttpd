@@ -101,5 +101,3 @@ final class mod_cache extends Module {
    }
    
 }
-
-?>

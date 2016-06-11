@@ -2,7 +2,7 @@
 /**
  * @filesource
  */
- 
+
 /**
  * Class for creating HTTP response header
  * - Created on Sat, 19 Jan 2008 19:58 GMT+7
@@ -41,7 +41,7 @@ class HttpHeaderMaker {
     * @var integer
     */
    private $respStatus = null;   // HTTP response status
-   
+
    /**
     * Constructor
     *
@@ -68,7 +68,7 @@ class HttpHeaderMaker {
       $this->header = array(array());
       $this->httpVersion = "HTTP/1.1";
    }
-   
+
    /**
     * method to set/change HTTP response status
     *
@@ -78,7 +78,7 @@ class HttpHeaderMaker {
    public function setRespStatus($status) {
       $this->respStatus = $status;
    }
-   
+
    /**
     * method to get HTTP response status
     *
@@ -87,7 +87,7 @@ class HttpHeaderMaker {
    public function getRespStatus() {
       return $this->respStatus;
    }
-   
+
    /**
     * method to set/change HTTP protocol version
     *
@@ -97,7 +97,7 @@ class HttpHeaderMaker {
    public function setHttpVersion($ver) {
       $this->httpVersion = $ver;
    }
-   
+
    /**
     * method to get HTTP protocol version
     *
@@ -106,14 +106,14 @@ class HttpHeaderMaker {
    public function getHttpVersion() {
       return $this->httpVersion;
    }
-   
+
    /**
     * method to add header to the current HTTP response array, i.e.
-    * - $object->addHeader('content-type', 'text/plain'); 
+    * - $object->addHeader('content-type', 'text/plain');
     * - will produce something like this on response header:
     * - [OTHER HEADER: OTHER VALUE]\r\n
     * - Content-Type: text/plain\r\n
-    * 
+    *
     * @param string $headerName         header name
     * @param string $value              header value
     * @return void
@@ -131,7 +131,7 @@ class HttpHeaderMaker {
          $this->header[strtolower($headerName)][] = $this->capHeader($headerName).": ".$value;
       }
    }
-   
+
    /**
     * method to remove some header from current HTTP response
     *
@@ -142,7 +142,7 @@ class HttpHeaderMaker {
       // unset the array that have index named $headerName
       unset($this->header[strtolower($headerName)]);
    }
-   
+
    /**
     * method to capitalize header name, e.g:
     * content-length >> become >> Content-Length
@@ -154,16 +154,16 @@ class HttpHeaderMaker {
       if (!strstr($header, "-")) {
          return ucfirst($header);
       }
-      
+
       $header = explode("-", $header);
       for ($i=0; $i<count($header); $i++) {
          $header[$i] = ucfirst($header[$i]);
       }
       return implode('-', $header);
    }
-   
+
    /**
-    * method to get header that sent by CGI script 
+    * method to get header that sent by CGI script
     * and pass the output body to &$cont
     *
     * @param string $resp          CGI response/output (including the header)
@@ -180,7 +180,7 @@ class HttpHeaderMaker {
       $cont = $header[1];
       return $header[0]."\r\n\r\n";  // we add it since it splitted by 'explode()'
    }
-   
+
    /**
     * method to
     *
@@ -194,9 +194,9 @@ class HttpHeaderMaker {
          return false;
       }
    }
-    
+
    /**
-    * method to check whether some header is present on 
+    * method to check whether some header is present on
     * current CGI response or not
     *
     * @param string $sHeader         header name that we want to search
@@ -205,7 +205,7 @@ class HttpHeaderMaker {
     * @since 0.1-beta3
     */
    public function isHeaderPresentInCgi($sHeader, $cgiHeader) {
-      print ("CHECKING HEADER: $cgiHeader <=> $sHeader\n");   
+      print ("CHECKING HEADER: $cgiHeader <=> $sHeader\n");
       // if (preg_match("/$sHeader/i", $sHeader)) {
       if (stripos($cgiHeader, $sHeader) === false) {
          return false;
@@ -213,11 +213,11 @@ class HttpHeaderMaker {
          return true;
       }
    }
-   
+
    /**
     * Method to build complete header. There's some issue when provide header
     * if the content from CGI script. The end of HTTP header should controlled by
-    * CGI script not by us, so we would not send double blank line (\r\n\r\n) 
+    * CGI script not by us, so we would not send double blank line (\r\n\r\n)
     * at the end of header if the content is dynamic.
     *
     * @param string $crlf         \r\n characters
@@ -230,21 +230,21 @@ class HttpHeaderMaker {
       $headerSend = $this->httpVersion." ".$this->statusCode[$this->respStatus]."\r\n";
       // $header = implode("\r\n", $this->header);
       $header = '';
-      
+
       foreach ($this->header as $hname=>$newheader) {
          foreach ($newheader as $hval) {
             $header .= "$hval\r\n";
          }
       }
-      
+
       $header = rtrim($header);
-      
+
       // if the content is static $crlf should \r\n
       $headerSend .= $header.$crlf."\r\n";
-      
+
       return $headerSend;
    }
-   
+
    public function __toString() {
       $res = "[- ";
       foreach ($this->header as $h) {
@@ -254,5 +254,3 @@ class HttpHeaderMaker {
       return $res;
    }
 }
-
-?>

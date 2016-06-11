@@ -61,5 +61,3 @@ final class mod_log extends Module {
       unset($logger);
    }
 }
-
-?>

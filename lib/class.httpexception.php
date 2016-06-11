@@ -2,7 +2,7 @@
 /**
  * @filesource
  */
- 
+
 /**
  * Custom exception class to catch HTTP error
  * - Created on Sat, 19 Jan 2008 19:47:59 GMT+7
@@ -25,7 +25,7 @@ class HttpException extends Exception {
    protected $title = null;
    private $excHeader = null;
    private $remHeader = null;
-   
+
    /**
     * Constructor, The fourth parameter is available since 0.1-beta2
     *
@@ -42,32 +42,32 @@ class HttpException extends Exception {
                $this->title = "302 - Moved Temporarily";
                $this->message = "<h1>302 - Moved Temporarily</h1>";
             break;
-            
+
             case 301:
                $this->title = "301 - Moved Permanently";
                $this->message = "<h1>301 - Moved Permanently</h1>";
             break;
-            
+
             case 304:
                $this->title = '';
                $this->message = '';
             break;
-            
+
             case 403:
                $this->title = "Error 403 - Access Forbidden";
                $this->message = "<h1>Error 403 - Access Forbidden</h1>";
             break;
-            
+
             case 404:
                $this->title = "Error 404 - Not Found";
                $this->message = "<h1>Error 404 - Not Found</h1>";
             break;
-            
+
             default:
                $this->title = "Error 500 - Internal Server Error";
                $this->message = "<h1>Error 500 - Internal Server Error</h1>";
             break;
-         }  
+         }
       } else {
          $this->title = $title;
          $this->message = "<h1>$title</h1>\n$message\n";
@@ -76,7 +76,7 @@ class HttpException extends Exception {
       $this->excHeader = $header;
       $this->remHeader = $removeHeader;
    }
-   
+
    /**
     * method to get the title error string
     *
@@ -85,7 +85,7 @@ class HttpException extends Exception {
    public function getTitle() {
       return $this->title;
    }
-   
+
    /**
     * method to add new header to current HTTP response
     *
@@ -100,14 +100,14 @@ class HttpException extends Exception {
          }
       }
    }
-   
+
    /**
     * method to remove new header to current HTTP response
     *
     * @param HttpHeaderMaker  $htmaker       HttpHeaderMaker object
     * @return void
     * @since 0.1-RC1
-    */   
+    */
    public function deleteHeader($htmaker) {
       if ($this->remHeader) {
          if (is_array($this->remHeader)) {
@@ -120,5 +120,3 @@ class HttpException extends Exception {
       }
    }
 }
-
-?>

@@ -22,7 +22,7 @@ class FormattedServerDir extends ServerDir {
    public function __construct($dir="/") {
       parent::__construct($dir);
    }
-   
+
    /**
     * Method to format directory in HTML
     *
@@ -38,36 +38,36 @@ class FormattedServerDir extends ServerDir {
       $reldir = "";
       $filetitle = "";
       $parentlink = "";
-      
+
       HttpServer::liveDebug("############## REQUEST ---- WAS: $req\n");
       // $result = "<h1>{$this->message}</h1>\n";
       $result = "<pre>\n";
 
          $filetitle .= sprintf (
-                  "%-50.50s%23.23s%18.18s\n", 
+                  "%-50.50s%23.23s%18.18s\n",
                   'Name', 'Last Modified', 'Size');
          $parentlink .= '<hr />';
          $parentlink .= '<img style="position:relative;top:5px;" alt="[parent] " '.
                     'src="/icons/parent.png" />';
-         
+
          if ($req == '/') {
             $parent = "javascript:alert('Top of Document Root!');";
          } else {
             $sd = new ServerDir($req);
             $parent = $sd->goToParent(false);
             print "___PARENT: $parent\n";
-            
+
             if ($parent != '/') {
                $parent .= '/';
             }
             HttpServer::liveDebug("############# SD->GETDIR: ".$sd->getDir()."\n");
          }
          $parentlink .= '<a href="'.$parent.'" />Parent Directory</a>'."\n";
-      
+
       if (sizeof($lists) > 0) {
-         
+
          $result .= $filetitle . $parentlink;
-         
+
          foreach ($lists as $list) {
             // do not include hidden file
             if (substr($list, 0, 1) != '.') {
@@ -75,7 +75,7 @@ class FormattedServerDir extends ServerDir {
                $stat = stat($curfile); // get array of status
                // modification time
                $modtime = strftime('%d-%b-%Y %H:%M', $stat['mtime']);
-               
+
                $size = $stat['size'] / 1024; // kb
                $kbmb = 'k';
                if ($size > 1024) {  // make it mb
@@ -83,9 +83,9 @@ class FormattedServerDir extends ServerDir {
                   $kbmb = 'M';
                }
                $size = sprintf('%.2f', $size).$kbmb;
-               
+
                // get extension to determine image that we want to show
-               
+
                $path = pathinfo($curfile);
                $ext = strtolower($path['extension']);
                $imgfile = "unknown.png";
@@ -100,10 +100,10 @@ class FormattedServerDir extends ServerDir {
                      $imgfile = "archive.png";
                   }
                }
-               
+
                $img = '<img style="position:relative;top:5px;" '.
                       'src="/icons/'.$imgfile.'" alt="[file] " />';
-               
+
                if (is_dir($curfile)) {
                   $list .= '/';
                   $size = '-';
@@ -113,7 +113,7 @@ class FormattedServerDir extends ServerDir {
                $link = $img.' <a href="'.$list.'">'.$list.'</a>';
                // need some tricky to formatting :)
                $format = sprintf(
-                        "%-50.50s%20.20s%15.15s\n", 
+                        "%-50.50s%20.20s%15.15s\n",
                         '{'.str_repeat('*', (strlen($list))-2).'}', $modtime, $size);
                $result .= str_replace('{'.str_repeat('*', (strlen($list))-2).'}', $link, $format);
                // $result .= $link."\n";
@@ -125,8 +125,6 @@ class FormattedServerDir extends ServerDir {
          $result .= "[ EMPTY DIRECTORY ]\n";
       }
       $result .= "</pre>\n";
-      return $result;   
-   }   
+      return $result;
+   }
 }
-
-?>

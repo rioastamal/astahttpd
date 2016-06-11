@@ -79,5 +79,3 @@ final class mod_auth_basic extends Module {
    }
    
 }
-
-?>

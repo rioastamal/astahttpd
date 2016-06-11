@@ -132,5 +132,3 @@ class mod_cgi_header extends Module {
       }
    }
 }
-
-?>

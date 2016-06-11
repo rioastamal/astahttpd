@@ -57,5 +57,3 @@ final class mod_test extends Module {
       */
    }
 }
-
-?>

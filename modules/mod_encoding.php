@@ -69,5 +69,3 @@ final class mod_encoding extends Module {
        } 
    }
 }
-
-?>

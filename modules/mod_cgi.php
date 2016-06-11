@@ -193,5 +193,3 @@ final class mod_cgi extends Module {
       }
    }
 }
-
-?>
