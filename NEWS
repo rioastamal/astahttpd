@@ -1,0 +1,50 @@
+01-Apr-2008, astahttpd 0.1 RC1
+-------------------------------
+- Win32 Support
+- Some part now moved as module, such as:
+  - mod_static
+  - mod_log
+  - mod_dir_browser
+- New modules:
+  - mod_autofix_uri
+  - mod_cache ( HTTP 304 Not Modified )
+- astahttpd does not need pcntl extension anymore
+- Dropped support for IP Based Virtual Host
+- many improvements
+- Fixed bug #1929009 (Internal gzip compression not work)
+- Fixed bug #1929215 (Could not handle same header name in HTTP Header)
+
+07-Feb-2008, astahttpd 0.1 beta3
+---------------------------------
+- Digest Authentication
+- Modular Architecture
+- Currenly available modules: mod_auth_basic, mod_auth_digest, mod_bandwidth,
+  mod_cgi_header, mod_cgi, mod_encoding, mod_rewrite, mod_status, mod_vhost
+- Fixed bug #1887560 (CGI header did not handled properly)
+- Fixed bug #1885235 (Error not properly handled on external gzip)
+- Fixed bug #1885216 (Missing compression level on external gzip)
+
+01-Feb-2008, astahttpd 0.1 beta2
+--------------------------------
+- Fixed bug #1882558, Always return Error 500 when listing a directory
+- Added Manual/API
+- Added Simple URL Rewriting
+- Added deflate format for Content-Encoding
+  (PHP must be compiled using --with-zlib)
+- Added Basic Authentication
+- License changed from GPLv2 to GPLv3
+- New comment style to suit PHPDocumentor style guide
+- Log written to file (access_log & rewrite_log)
+
+26-Jan-2008, astahttpd 0.1 beta1
+--------------------------------
+- Fixed bug #1879557, (Not currently handlle \r\n\r\n characters on client request)
+- Added both IP and name based Virtual Host Support
+- Added Content-Encoding support (gzip)
+
+23-Jan-2008, astahttpd 0.1 alpha
+--------------------------------
+- First public release
+- GET, HEAD, POST methods
+- CGI processing
+- Alias Directories support

@@ -1,0 +1,9 @@
+Stuff what to do (Not in order):
+
+* Implements persistent connection (keep-alive)
+
+* Implements more HTTP/1.1 standard
+
+* More complex URL Rewrite Flag
+
+* Implements FastCGI/1.0
