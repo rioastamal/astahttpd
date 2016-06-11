@@ -11,7 +11,7 @@
  * @package       astahttpd
  * @subpackage    modules
  * @copyright     Copyright (c) 2008, Rio Astamal
- * @author        Rio Astamal <c0kr3x@gmail.com>
+ * @author        Rio Astamal <me@rioastamal.net>
  * @version       0.1 (for astahttpd >= v0.1-beta3)
  * @link          http://astahttpd.sourceforge.net/
  * @license       http://opensource.org/licenses/gpl-license.php GNU GPLv3
@@ -127,7 +127,7 @@ under the terms of the GNU GPLv3. You can see in the file called LICENSE.
 </p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 </p>
-<p>If you have question, bugs, or anything please feel free to contact me at c0kr3x@gmail.com or go to http://astahttpd.sourceforge.net/.
+<p>If you have question, bugs, or anything please feel free to contact me at me@rioastamal.net or go to http://astahttpd.sourceforge.net/.
 </p>
 </td></tr>
 </table><hr />";

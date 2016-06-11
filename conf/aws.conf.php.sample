@@ -1,0 +1,262 @@
+<?php
+/**
+ * This file contains most configuration needed by astahttpd to run properly
+ * @package astahttpd
+ * @subpackage conf
+ * @filesource
+ */
+ 
+/**
+ * LISTEN PORT
+ */
+$aws_conf['port'] = 80;
+
+/**
+ * HOST IP ADDRESS 
+ */
+$aws_conf['host'] = '127.0.0.1';
+/**
+ * HOST NAME i.e. localhost, example.com, etc
+ */
+$aws_conf['host_name'] = 'localhost';
+
+/** 
+ * DOCUMENT ROOT, LEAVE EMPTY TO USE DEFAULT htdocs DIRECTORY
+ */
+$aws_conf['doc_root'] = '';
+
+/** 
+ * SERVER NAME i.e. astahttpd
+ */
+$aws_conf['server_name'] = 'astahttpd';
+/**
+ * SERVER ADMIN EMAIL ADDRESS, WILL BE SHOWED ON 500 ERROR PAGE
+ */
+$aws_conf['server_admin'] = 'me@localhost';
+/**
+ * SERVER SIGNATURE, DO NOT CHANGE TEXT IN {...} FORMAT 
+ */
+$aws_conf['server_signature'] = '<hr><address>{SERVER_FULL_NAME} - '.
+                                'Running at {HOST} port {PORT} - '.
+                                'Server time {TIME}</address>';
+/**
+ * LIVE DEBUGGING
+ */
+$aws_conf['live_debug'] = true;
+
+/**
+ * CGI EXTENSION AND CGI HANDLER LOCATION
+ */
+$aws_conf['cgi_handler'] = array(
+            /* NOTE: DO NOT ADD COMA (",") FOR LAST ELEMENT */
+            
+            /* PHP */
+            'php inc' => PHP_CGI_LOC,  // DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING
+            /* PERL */
+            'pl cgi' => '%PERL_PATH%', // OR X:\FULL\PATH\TO\perl.exe
+            /* PYTHON */
+            'py' => '%PYTHON_PATH%',
+            /* BASH/WSH(Windows) */
+            'sh vbs' => '%SHELL_SCRIPT%'
+            );
+
+/**
+ * ALIAS DIRECTORY 
+ */
+$aws_conf['alias_dir'] = array(
+            /* NOTE: - DO NOT REMOVE THE '/icons' alias
+                     - DO NOT ADD COMA (",") FOR LAST ELEMENT */
+            '/icons' => ''
+            );
+
+/**
+ * BASIC AUTHENTICATION, relative to doc_root
+ */
+$aws_conf['auth'][] = array(
+            'type'   => 'Basic',
+            // add slash on the end if it's a directory
+            'res'    => '/secret.txt',   // resource to protect
+            'user'   => 'astahttpd',
+            'pass'   => 'rc1',
+            'rtype' => 'file',   // resource type, 'file' or 'dir' 
+            'realm'  => 'asthattpd authentication example'
+         );
+
+/**
+ * DEFAULT INDEX PAGE 
+ */
+$aws_conf['index_page'] = array(
+            /* NOTE: DO NOT ADD COMA (",") FOR LAST ELEMENT */
+            'index.htm', 'index.html', 'index.php', 'index.cgi', 'index.py',
+            'index.sh', 'index.pl'
+            );
+            
+/**
+ *  MIME TYPES
+ */
+$aws_conf['mime_types'] = array(
+            /* NOTE: DO NOT ADD COMA (",") FOR LAST ELEMENT */
+            'htm html'  => 'text/html',
+            'css'       => 'text/css',
+            'txt'       => 'text/plain',
+            'xml'       => 'text/xml',
+            'js'        => 'application/x-javascript',
+            'swf'       => 'application/x-shockwave-flash',
+            'exe bin'   => 'application/octet-stream',
+            'zip'       => 'application/zip',
+            'tar'       => 'application/x-tar',
+            'gz'        => 'application/x-gzip',
+            'pdf'       => 'application/x-pdf',
+            'jpg jpeg'  => 'image/jpeg',
+            'gif'       => 'image/gif',
+            'png'       => 'image/png',
+            'mp3'       => 'audio/mpeg',
+            'ogg'       => 'audio/ogg'
+            );
+
+/**
+ * LOG FILES
+ */
+$aws_conf['access_log']['file'] = AWS_ROOT_DIR.'/logs/access_log';
+$aws_conf['access_log']['max'] = 10000; // in kb
+$aws_conf['rewrite_log']['file'] = AWS_ROOT_DIR.'/logs/rewrite_log';  // not used yet
+$aws_conf['rewrite_log']['max'] = 10000; // in kb
+
+/**
+ * SIMPLE URL REWRITE
+ */
+$aws_conf['rewrite_engine'] = 1; // 0 = Off, 1 = On
+/**
+ * L means 'Last', that tell astahttpd to not continue searching when one
+ * pattern is match.
+ * R means 'Redirect', R tell astahttpd to use HTTP redirect instead of
+ * background processing. If 'http://' protocol is not found in target
+ * astahttpd assume that hostname is current host.
+ * DON'T USE DOUBLE QUOTE FOR 'target', USE SINGLE QUOTE INSTEAD.
+ */
+
+$aws_conf['rewrite'][] = array(
+                  'pattern'      => '^/api$',
+                  'target'       => '/astahttpd_api',
+                  'flag'         => 'R'
+                );
+$aws_conf['rewrite'][] = array(
+                  'pattern'      => '^/php.info$',
+                  'target'       => '/info.php',
+                  'flag'         => 'R'
+               );
+$aws_conf['rewrite'][] = array(
+                  'pattern'      => '^/perl.info$',
+                  'target'       => '/printenv',
+                  'flag'         => 'L'
+                );
+$aws_conf['rewrite'][] = array(
+                  'pattern'      => '^/python.info$',
+                  'target'       => '/pyenv.py',
+                  'flag'         => 'L'
+                );                   
+$aws_conf['rewrite'][] = array(
+                  'pattern'      => "^/\bexample\b/?([^/]*)?/?([^/]*)/?([^/]*)/?$",
+                  'target'       => '/rewrite.php?act=$1&cat=$2&words=$3',
+                  'flag'         => 'L'
+                );
+
+/**
+ * BANDWIDTH CONFIGURATION FOR MAIN HOST
+ */
+$aws_conf['bandwidth'] = array(
+                  'file'         => '%TEMP_DEF%',
+                  'limit'        => 0   // in kb, 0 = unlimited
+                  );
+
+/* 
+ * VIRTUAL HOST, IP BASED AND/OR NAME BASED 
+ * ---------------------------------------------
+ * EXAMPLE:
+ * IF YOU WANT TO USE NAME BASED VIRTUAL HOST,
+ * LEAVE 'host' value null
+ */
+$aws_conf['v_host'][] = array(
+            'host'            => null,
+            'port'            => null, // leave null to use default
+            'host_name'       => 'local.vhost1',
+            'doc_root'        => '%DOC_ROOT_V1%',
+            'server_admin'    => 'vhost1@localhost',
+            'bandwidth'        => array(
+                                    'file'   => '%TEMP_V1%',
+                                    'limit'  => 0
+                                    ),
+            
+            // rewrite engine on virtual host
+            'rewrite_engine'  => 1,
+            'rewrite'         => array(
+                                    array(
+                                    'pattern'   => '^/getinfo$',
+                                    'target'    => 'http://localhost:'.$aws_conf['port'].'/info.php',
+                                    'flag'      => 'L,R'
+                                    )
+                                 ),
+            'auth'            => array(
+                                    array(
+                                    'type'   => 'Digest',
+                                    // add slash on the end if it's a directory
+                                    'res'    => '/private/',
+                                    'user'   => 'digest',
+                                    'pass'   => 'passiton',
+                                    'rtype'  => 'dir',
+                                    'realm'  => 'asthattpd authentication example'
+                                    ),
+                                    array(
+                                    'type'   => 'Basic',
+                                    // add slash on the end if it's a directory
+                                    'res'    => '/pub/restrict.txt',
+                                    'user'   => 'c0kr3x',
+                                    'pass'   => 'open123',
+                                    'rtype'  => 'file',
+                                    'realm'  => 'asthattpd authentication example'
+                                    ),                                    
+                                 )
+            );
+
+$aws_conf['v_host'][] = array(
+            'host'            => null,
+            'port'            => null,
+            'host_name'       => 'local.vhost2',
+            'doc_root'        => '%DOC_ROOT_V2%',
+            'server_admin'    => 'vhost1@localhost',
+            'bandwidth'        => array(
+                                    'file'   => '%TEMP_V2%',
+                                    'limit'  => 0
+                                    )
+            );
+
+/**
+ * MODULES, DEACTIVATE THESE MODULES DOES NOT STOP SERVER TO WORK, BUT
+ * THE SERVER DIDN'T DO MUCH THING WITHOUT MODULES :)
+ */
+$aws_conf['modules'] = array(
+                           'mod_test'        => 'Off',
+                           'mod_encoding'    => 'On',
+                           'mod_auth_basic'  => 'On',
+                           'mod_auth_digest' => 'On',
+                           'mod_autofix_uri' => 'On',
+                           'mod_bandwidth'   => 'On',
+                           'mod_cache'       => 'On',
+                           'mod_cgi'         => 'On',
+                           'mod_cgi_header'  => 'On',
+                           'mod_dir_browser' => 'On',
+                           'mod_log'         => 'On',
+                           'mod_vhost'       => 'On',
+                           'mod_rewrite'     => 'On',
+                           'mod_status'      => 'On',
+                           'mod_static'      => 'On'
+                       );
+
+/**
+ * CONFIGURATION FOR mod_status
+ */
+$aws_conf['mod_status'] = array(
+                           // i.e. http://localhost/mod_status.view
+                           'url_status'      => '/mod_status.view'
+                        );
+?>

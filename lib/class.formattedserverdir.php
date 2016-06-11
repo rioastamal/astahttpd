@@ -6,7 +6,7 @@
  * @package       astahttpd
  * @subpackage    lib
  * @copyright     Copyright (c) 2008, Rio Astamal
- * @author        Rio Astamal <c0kr3x@gmail.com>
+ * @author        Rio Astamal <me@rioastamal.net>
  * @version       0.1
  * @link          http://astahttpd.sourceforge.net/
  * @license       http://opensource.org/licenses/gpl-license.php GNU GPLv3
