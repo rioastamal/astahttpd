@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 ini_set("max_execution_time", "0");
@@ -8,20 +9,25 @@ error_reporting(E_ALL);
 
 // astahttpd configuration file
 if (substr(PHP_OS, 0, 3) == 'WIN') {
-   include_once($_ENV['APPDATA'].'\.astahttpd');
+   if (file_exists($_SERVER['APPDATA'].'\.astahttpd')) {
+      include_once($_SERVER['APPDATA'].'\.astahttpd');
+   }
    define('IS_WINDOWS', 1);
    define('AWS_READ_BUFF', 64);
    define('AWS_REQUEST_DELIM', PHP_BINARY_READ);
 } else {
-	if (!@include_once($_SERVER['HOME'].'/.astahttpd')) {
-	   include_once('/root/.astahttpd');
-	}
+   if (file_exists($_SERVER['HOME'].'/.astahttpd')) {
+      include_once($_SERVER['HOME'].'/.astahttpd');
+   }
    define('IS_WINDOWS', 0);
    define('AWS_READ_BUFF', 512);
    define('AWS_REQUEST_DELIM', PHP_NORMAL_READ);
 }
 
 define('DSEP', DIRECTORY_SEPARATOR);
+if (! defined('AWS_ROOT_DIR')) {
+   define('AWS_ROOT_DIR', getcwd());
+}
 
 include_once(AWS_ROOT_DIR."/lib/class.httpserver.php");
 
