@@ -1,5 +1,5 @@
-astahttpd v0.1 RC1 README file
--------------------------------
+Update
+------
 
 I wrote astahttpd back in early 2008 as a fun project and stop developing it
 at the same year. At that time PHP did not have built-in web server. I don't
@@ -92,4 +92,16 @@ called LICENSE.txt
 
 Author
 -------
-Rio Astamal (me@rioastamal.net)
+Rio Astamal <me@rioastamal.net>
+
+Screenshots
+------
+![alt text](https://a.fsdn.com/con/app/proj/astahttpd/screenshots/156734.jpg "Directory Browsing")
+
+![alt text](https://a.fsdn.com/con/app/proj/astahttpd/screenshots/156732.jpg "PHP Info - CGI")
+
+![alt text](https://a.fsdn.com/con/app/proj/astahttpd/screenshots/158123.jpg "HTTP Basic Authentication")
+
+![alt text](https://a.fsdn.com/con/app/proj/astahttpd/screenshots/158125.jpg "Default Document Root")
+
+![alt text](https://a.fsdn.com/con/app/proj/astahttpd/screenshots/166194.jpg "Server Status via mod_status")
