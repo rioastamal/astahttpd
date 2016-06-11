@@ -1,8 +1,6 @@
-                  astahttpd v0.1 RC1 README file
-                  -------------------------------
+astahttpd v0.1 RC1 README file
+-------------------------------
 
-Notes
------
 I wrote astahttpd back in early 2008 as a fun project and stop developing it
 at the same year. At that time PHP did not have built-in web server. I don't
 have plan neither to make new features nor do bug fixing on astahttpd.
@@ -42,23 +40,21 @@ security issue that has not been fixed yet.
 The Idea
 --------
 
-1)
-The idea behind the making of astahttpd is simple, I just need simple
+1. The idea behind the making of astahttpd is simple, I just need simple
 web server for astasms (an sms server written also in pure PHP). Since
 astasms front-end is web based, so it needs a web server. I don't want
 to use Apache or other mainstream web server player, because i think
 it's too heavy if used only for supporting front-end.
 
-After tried few simple httpd server written by somebody else, but most of them
+   After tried few simple httpd server written by somebody else, but most of them
 just make me more frustating. Many of them is really hard to install and
 configure and the worst, i even cannot compile them :( .
 
-So I started to make my own web server using my favorite language PHP. The first
+   So I started to make my own web server using my favorite language PHP. The first
 thnik I need to decide is whether to use PHP4 or PHP5. I think OOP in PHP5
 is very good and make software maintanance easier. So I decided to use PHP5.
 
-2)
-Just for fun :) .
+2. Just for fun :) .
 
 Current Version
 ---------------
@@ -76,12 +72,14 @@ Installation
 
 Quick start
 
-   $ git clone git@github.com:astasoft/astahttpd
-   $ cd astahttpd
-   $ cp conf/aws.conf.php.sample conf/aws.conf.php
-   $ php bin/aws
+```
+$ git clone git@github.com:astasoft/astahttpd
+$ cd astahttpd
+$ cp conf/aws.conf.php.sample conf/aws.conf.php
+$ php bin/aws
+```
 
-   Open your web browser and point to http://localhost:8000
+Open your web browser and point to http://localhost:8000
 
 For details see file called INSTALL for Linux and INSTALL_WIN32 for
 Windows users.
@@ -92,6 +90,6 @@ License
 astahttpd is licensed under GNU GPL v3, for more information see file
 called LICENSE.txt
 
--------------------------------------------------------------------------------
+Author
+-------
 Rio Astamal (me@rioastamal.net)
--------------------------------------------------------------------------------
