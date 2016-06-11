@@ -5,14 +5,14 @@
  * @subpackage conf
  * @filesource
  */
- 
+
 /**
  * LISTEN PORT
  */
-$aws_conf['port'] = 80;
+$aws_conf['port'] = 8000;
 
 /**
- * HOST IP ADDRESS 
+ * HOST IP ADDRESS
  */
 $aws_conf['host'] = '127.0.0.1';
 /**
@@ -20,12 +20,12 @@ $aws_conf['host'] = '127.0.0.1';
  */
 $aws_conf['host_name'] = 'localhost';
 
-/** 
+/**
  * DOCUMENT ROOT, LEAVE EMPTY TO USE DEFAULT htdocs DIRECTORY
  */
 $aws_conf['doc_root'] = '';
 
-/** 
+/**
  * SERVER NAME i.e. astahttpd
  */
 $aws_conf['server_name'] = 'astahttpd';
@@ -34,7 +34,7 @@ $aws_conf['server_name'] = 'astahttpd';
  */
 $aws_conf['server_admin'] = 'me@localhost';
 /**
- * SERVER SIGNATURE, DO NOT CHANGE TEXT IN {...} FORMAT 
+ * SERVER SIGNATURE, DO NOT CHANGE TEXT IN {...} FORMAT
  */
 $aws_conf['server_signature'] = '<hr><address>{SERVER_FULL_NAME} - '.
                                 'Running at {HOST} port {PORT} - '.
@@ -49,19 +49,19 @@ $aws_conf['live_debug'] = true;
  */
 $aws_conf['cgi_handler'] = array(
             /* NOTE: DO NOT ADD COMA (",") FOR LAST ELEMENT */
-            
-            /* PHP */
-            'php inc' => PHP_CGI_LOC,  // DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING
-            /* PERL */
-            'pl cgi' => '%PERL_PATH%', // OR X:\FULL\PATH\TO\perl.exe
-            /* PYTHON */
-            'py' => '%PYTHON_PATH%',
+
+            /* PHP CGI Binary */
+            'php inc' => '/usr/bin/php5-cgi',
+            /* PERL Binary */
+            'pl cgi' => '/usr/bin/perl', // OR X:\FULL\PATH\TO\perl.exe
+            /* PYTHON Binary */
+            'py' => '/usr/bin/python',
             /* BASH/WSH(Windows) */
-            'sh vbs' => '%SHELL_SCRIPT%'
+            'sh vbs' => '/bin/bash'
             );
 
 /**
- * ALIAS DIRECTORY 
+ * ALIAS DIRECTORY
  */
 $aws_conf['alias_dir'] = array(
             /* NOTE: - DO NOT REMOVE THE '/icons' alias
@@ -78,19 +78,19 @@ $aws_conf['auth'][] = array(
             'res'    => '/secret.txt',   // resource to protect
             'user'   => 'astahttpd',
             'pass'   => 'rc1',
-            'rtype' => 'file',   // resource type, 'file' or 'dir' 
+            'rtype' => 'file',   // resource type, 'file' or 'dir'
             'realm'  => 'asthattpd authentication example'
          );
 
 /**
- * DEFAULT INDEX PAGE 
+ * DEFAULT INDEX PAGE
  */
 $aws_conf['index_page'] = array(
             /* NOTE: DO NOT ADD COMA (",") FOR LAST ELEMENT */
             'index.htm', 'index.html', 'index.php', 'index.cgi', 'index.py',
             'index.sh', 'index.pl'
             );
-            
+
 /**
  *  MIME TYPES
  */
@@ -119,7 +119,7 @@ $aws_conf['mime_types'] = array(
  */
 $aws_conf['access_log']['file'] = AWS_ROOT_DIR.'/logs/access_log';
 $aws_conf['access_log']['max'] = 10000; // in kb
-$aws_conf['rewrite_log']['file'] = AWS_ROOT_DIR.'/logs/rewrite_log';  // not used yet
+$aws_conf['rewrite_log']['file'] = AWS_ROOT_DIR.'/logs/rewrite_log';
 $aws_conf['rewrite_log']['max'] = 10000; // in kb
 
 /**
@@ -154,7 +154,7 @@ $aws_conf['rewrite'][] = array(
                   'pattern'      => '^/python.info$',
                   'target'       => '/pyenv.py',
                   'flag'         => 'L'
-                );                   
+                );
 $aws_conf['rewrite'][] = array(
                   'pattern'      => "^/\bexample\b/?([^/]*)?/?([^/]*)/?([^/]*)/?$",
                   'target'       => '/rewrite.php?act=$1&cat=$2&words=$3',
@@ -165,12 +165,12 @@ $aws_conf['rewrite'][] = array(
  * BANDWIDTH CONFIGURATION FOR MAIN HOST
  */
 $aws_conf['bandwidth'] = array(
-                  'file'         => '%TEMP_DEF%',
+                  'file'         => 'logs/bandwidth.main.log',
                   'limit'        => 0   // in kb, 0 = unlimited
                   );
 
-/* 
- * VIRTUAL HOST, IP BASED AND/OR NAME BASED 
+/*
+ * VIRTUAL HOST, IP BASED AND/OR NAME BASED
  * ---------------------------------------------
  * EXAMPLE:
  * IF YOU WANT TO USE NAME BASED VIRTUAL HOST,
@@ -180,13 +180,13 @@ $aws_conf['v_host'][] = array(
             'host'            => null,
             'port'            => null, // leave null to use default
             'host_name'       => 'local.vhost1',
-            'doc_root'        => '%DOC_ROOT_V1%',
+            'doc_root'        => AWS_ROOT_DIR.'/vhost/local.vhost1',
             'server_admin'    => 'vhost1@localhost',
             'bandwidth'        => array(
-                                    'file'   => '%TEMP_V1%',
+                                    'file'   => 'logs/bandwidth.local.vhost1.log',
                                     'limit'  => 0
                                     ),
-            
+
             // rewrite engine on virtual host
             'rewrite_engine'  => 1,
             'rewrite'         => array(
@@ -214,7 +214,7 @@ $aws_conf['v_host'][] = array(
                                     'pass'   => 'open123',
                                     'rtype'  => 'file',
                                     'realm'  => 'asthattpd authentication example'
-                                    ),                                    
+                                    ),
                                  )
             );
 
@@ -222,10 +222,10 @@ $aws_conf['v_host'][] = array(
             'host'            => null,
             'port'            => null,
             'host_name'       => 'local.vhost2',
-            'doc_root'        => '%DOC_ROOT_V2%',
+            'doc_root'        => AWS_ROOT_DIR.'/vhost/local.vhost2',
             'server_admin'    => 'vhost1@localhost',
             'bandwidth'        => array(
-                                    'file'   => '%TEMP_V2%',
+                                    'file'   => 'logs/bandwidth.local.vhost2.log',
                                     'limit'  => 0
                                     )
             );
