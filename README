@@ -4,8 +4,8 @@
 Notes
 -----
 I wrote astahttpd back in early 2008 as a fun project and stop developing it
-at the same year. I don't have plan neither to make new features nor do bug
-fixing on it.
+at the same year. At that time PHP did not have built-in web server. I don't
+have plan neither to make new features nor do bug fixing on astahttpd.
 
 What is astahttpd?
 ------------------
@@ -33,8 +33,8 @@ Currently astahttpd v0.1-RC1 support these following features:
 
 Note: * new in this release
 
-You need at least PHP 5.2.3 to run astahttpd since it implements OOP style
-that only available on PHP5.
+You need at least PHP 5.2.3 to run astahttpd since it implements Object
+Oriented features that only available on PHP5.
 
 astahttpd SHOULD NOT be used in production environment due many performance and
 security issue that has not been fixed yet.
