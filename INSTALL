@@ -10,72 +10,63 @@ System Requirements
 ===================
    * Linux OS (Tested with Ubuntu 7.04, kernel version 2.6.20-15)
      (I think it should be work on *BSD system too)
-   * PHP >= 5.2.x (Tested with PHP 5.2.3) 
+   * PHP >= 5.2.x (Tested with PHP 5.2.3) with sockets module enabled
    You can get PHP at http://www.php.net/
-   
+
 INSTALLING PHP
 ==============
 
-   Before starting, I want to remember you that astahttpd needs Sockets 
+   Before starting, I want to remember you that astahttpd needs Sockets
    extension to be enabled.
-   
+
    Here we go...
-   
+
    1. * Extract PHP source
       $ tar -zxvf php-5.x.x.tar.gz
    2. * CD to extracted directory
       $ cd php-5.x.x
    3. * Do configure
       $ ./configure --enable-sockets --enable-fastcgi
-      
+
       Note: - "--enable-fastcgi" is optional but very recommended to increase
               performance of PHP script significantly.
-              
+
             - You may want add other options such --with-mysql etc. BUT DO
               NOT INSTALL PHP as apache module (--with-apxs or --with-apxs2)
-              
-            - If you have older PHP instalation in your system, use 
+
+            - If you have older PHP instalation in your system, use
               "--prefix=/path/to/new/location" in configure. So your older PHP
               instalation will never be touch and remain safe.
-              
-            - As of v0.1-RC1 you don't need to build astahttpd using 
+
+            - As of v0.1-RC1 you don't need to build astahttpd using
               --enable-pcntl.
-              
+
     4. * Finally make and make install
        $ make
        $ make install
-       
+
        Note: if you want to put the instalation outside your home dir or you
-             do not want to get permission trouble, use 
+             do not want to get permission trouble, use
              "sudo make install" instead.
-             
+
     5. Done..., now let's move to next part "INSTALLING astahttpd"
-    
-====================    
+
+====================
 INSTALLING astahttpd
 ====================
 
-   I assume you will install astahttpd to /home/user directory. You MUST be
-   as root when installing astahttpd.
-   
-   1. * Extract astahttpd source
-      $ tar -zxvf astahttpd_x.x-rc1.gz
-   2. * CD to extracted directory
-      $ cd to astahttpd_x.x-rc1
-   3. * Finally do install
-      $ sudo ./install.sh
-   4. * Instalation is interactive based, so it's very easy.
-   5. Done..., that's it? yeah... :)
-   
-   To run the astahttpd daemon use:
-   
-   $ /home/user/astahttpd/bin/aws
+   Installing astahttpd is very simple, you just need do git clone
+   from github or download the tarball.
 
-   Open your web browser and point to http://localhost/ or 
-   http://localhost:PORT_NUMBER/ if you use port other than 80.
+   $ git clone git@github.com:astasoft/astahttpd
+   $ cd astahttpd
+   $ cp conf/aws.conf.php.sample conf/aws.conf.php
+   $ php bin/aws
+
+   Open your web browser and point to http://localhost:8000
 
    * Hit Ctrl-C if you want to quit/stop the daemon.
-   
+
 
 =====================
 CONFIGURING astahttpd
@@ -83,23 +74,23 @@ CONFIGURING astahttpd
 
    All server configuration saved in aws.conf.php which located inside conf
    folder on your instalation directory.
-   
-   By default astahttpd wil run on port 80, you can change 
+
+   By default astahttpd wil run on port 8000, you can change
    this by editing aws.conf.php.
-   
+
    If $aws_conf['doc_root'] is empty, astahttpd will use default htdocs dir.
-   
+
 
 INSTALLING MODULES
-==================   
+==================
 
    If you want install module there two main steps:
-      
+
       1. Put the module into modules/ directory
       2. Activate the modules via aws.conf.php file
-      
+
    Here example configuration of modules:
-   
+
       $aws_conf['modules'] = array(
                                  'mod_test'        => 'Off',
                                  'mod_encoding'    => 'On',
@@ -111,42 +102,42 @@ INSTALLING MODULES
                                  'mod_vhost'       => 'On',
                                  'mod_rewrite'     => 'On',
                                  'mod_status'      => 'On'
-                             );      
-   
+                             );
+
    NOTE:
    ---------------------------------------------------------------------------
    If you want to develop your own module, please follow these rules:
-   
+
       1. Every module MUST extends Module (module.php)
       2. Every module MUST have method named activate() with access public
-      3. Call parent::__construct() on your constructor class to make sure 
+      3. Call parent::__construct() on your constructor class to make sure
          everything is assigned properly
       4. Module name must be in lowercase, and if it consist more than one word
-         (I think always :)) separate it with underscore.
-      5. Module file name must be the same with the class name. If your class 
+         (I think always) separate it with underscore.
+      5. Module file name must be the same with the class name. If your class
          module name is mod_test then your module file name must be mod_test.php
-         
+
    Read module.php so you familiar with all the global variables. For quick
-   example see file mod_test.php, it will show you the basic. Don't forget 
+   example see file mod_test.php, it will show you the basic. Don't forget
    to activate it on aws.conf.php.
-   
+
 
 VIRTUAL HOST CONFIGURATION
 ==========================
    As a developer you may work on multiple projects at the same time. So
    it's better to make real simulation for your project. That's why virtual
    host support was added to astahttpd.
-   
-   Since v0.1-RC1 the IP based virtual host support was dropped. So only name 
+
+   Since v0.1-RC1 the IP based virtual host support was dropped. So only name
    based virtual hosts is supported since v0.1-RC1
-   
+
    Take a look at aws.conf file located in conf folder. It will gives you a lot
    of example how to configure your virtual host.
-   
-   Note:
-   When you install astahttpd, it modifiy your /etc/hosts file and add these
-   content:
-   
-   127.0.0.1   local.vhost1 local.vhost2
-   
-   So if you not use astahttpd anymore you may want to delete that line.
+
+   To test virtual host capability on astahttpd edit your /etc/hosts and add
+   two hosts 'local.vhost1' and 'local.vhost2'
+
+   127.0.0.1   localhost local.vhost1 local.vhost2
+
+   Then try to access the virtual host using your browser.
+   http://local.vhost1:8000/

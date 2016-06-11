@@ -4,19 +4,19 @@ INSTALLING astahttpd on Windows
 System Requirements
 ===================
    * Windows 2000 or later
-   * PHP >= 5.2.x (Tested with PHP 5.2.3) 
+   * PHP >= 5.2.x (Tested with PHP 5.2.3)
    You can get PHP at http://www.php.net/
-   
+
 INSTALLING PHP
 ==============
   You can skip this step if you have already install PHP.
-  
+
 - The Easy Way
 
-   The most easiest way to install PHP on Windows is from ready distribution 
+   The most easiest way to install PHP on Windows is from ready distribution
    such as XAMPP (http://www.apachefriends.org/).
-   
-- Not So Easy :)
+
+- Not So Easy
 
    1. Get the zip version of PHP from http://www.php.net/.
    2. Extract to a new location i.e. C:\php5.2.3
@@ -24,44 +24,29 @@ INSTALLING PHP
 
 Configuring PHP
 ---------------
-   
-   astahttpd need sockets and zlib extension so you need activate it. Open 
-   php.ini and activate php_sockets.dll. So remove ";" in front of 
+
+   astahttpd need sockets and zlib extension so you need activate it. Open
+   php.ini and activate php_sockets.dll. So remove ";" in front of
    extentension=php_sockets.dll.
-   
+
    Note: Zlib function is built-in in Windows version of PHP.
-   
-====================    
+
+====================
 INSTALLING astahttpd
 ====================
 
-   I assume you will install astahttpd on C: drive and your PHP 
-   directory is located on C:\php5.2.3.
-   
-   1. Extract astahttpd source using Windows Zip Extractor, WinZip, etc
-   2. Click Start > Run > cmd > OK
-      * cd to extracted directory i.e.
-      > cd astahttpd_0.1-RC1
-   3. Finally do install
-      > cscript.exe install_win32.vbs
-   4. Instalation is interactive based, so it's very easy.
-   5. Done..., that's it? yeah... :)
-   
-   Note: 
-   - You can replace STEP 2-3 by just right clicking file install_win32.vbs
-     and click "Open with command prompt"
-   - Make sure your anti-virus not block the install script since the file
-     using Visual Basic Script.
-   
-   To run the astahttpd daemon:
-   
-   Click Start > Programs > astahttpd v0.1-RC1 > start asthattpd
+   Installing astahttpd is very simple, you just need do git clone
+   from github or download the tarball.
 
-   Open your web browser and point to http://localhost/ or 
-   http://localhost:PORT_NUMBER/ if you use port other than 80.
+   $ git clone git@github.com:astasoft/astahttpd
+   $ cd astahttpd
+   $ cp conf/aws.conf.php.sample conf/aws.conf.php
+   $ php bin/aws
+
+   Open your web browser and point to http://localhost:8000
 
    * Hit Ctrl-C if you want to quit/stop the daemon.
-   
+
 
 =====================
 CONFIGURING astahttpd
@@ -69,23 +54,23 @@ CONFIGURING astahttpd
 
    All server configuration saved in aws.conf.php which located inside conf
    folder on your instalation directory.
-   
-   By default astahttpd wil run on port 80, you can change 
+
+   By default astahttpd wil run on port 80, you can change
    this by editing aws.conf.php.
-   
+
    If $aws_conf['doc_root'] is empty, astahttpd will use default htdocs dir.
-   
+
 
 INSTALLING MODULES
-==================   
+==================
 
    If you want install module there two main steps:
-      
+
       1. Put the module into modules directory
       2. Activate the modules via aws.conf.php file
-      
+
    Here example configuration of modules:
-   
+
       $aws_conf['modules'] = array(
                                  'mod_test'        => 'Off',
                                  'mod_encoding'    => 'On',
@@ -97,42 +82,43 @@ INSTALLING MODULES
                                  'mod_vhost'       => 'On',
                                  'mod_rewrite'     => 'On',
                                  'mod_status'      => 'On'
-                             );      
-   
+                             );
+
    NOTE:
    ---------------------------------------------------------------------------
    If you want to develop your own module, please follow these rules:
-   
+
       1. Every module MUST extends Module (module.php)
       2. Every module MUST have method named activate() with access public
-      3. Call parent::__construct() on your constructor class to make sure 
+      3. Call parent::__construct() on your constructor class to make sure
          everything is assigned properly
       4. Module name must be in lowercase, and if it consist more than one word
          (I think always :)) separate it with underscore.
-      5. Module file name must be the same with the class name. If your class 
+      5. Module file name must be the same with the class name. If your class
          module name is mod_test then your module file name must be mod_test.php
-         
+
    Read module.php so you familiar with all the global variables. For quick
-   example see file mod_test.php, it will show you the basic. Don't forget 
+   example see file mod_test.php, it will show you the basic. Don't forget
    to activate it on aws.conf.php.
-   
+
 
 VIRTUAL HOST CONFIGURATION
 ==========================
    As a developer you may work on multiple projects at the same time. So
    it's better to make real simulation for your project. That's why virtual
    host support was added to astahttpd.
-   
-   Since v0.1-RC1 the IP based virtual host support was dropped. So only name 
+
+   Since v0.1-RC1 the IP based virtual host support was dropped. So only name
    based virtual host is supported since v0.1-RC1
-   
+
    Take a look at aws.conf file located in conf folder. It will gives you a lot
    of example how to configure your virtual host.
-   
+
    Note:
    When you install astahttpd, it modifiy your X:\Windows\system32\drivers\etc\hosts
    file and add these content:
-   
+
    127.0.0.1   local.vhost1 local.vhost2
 
-   Try to access http://local.vhost1/ and http://local.vhost2/ to see if it works.
+   Try to access http://local.vhost1:8000/ and http://local.vhost2:8000/
+   to see if it works.
