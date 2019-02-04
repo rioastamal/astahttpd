@@ -9,8 +9,9 @@ What is astahttpd?
 ------------------
 
 astahttpd is free and open source web server written using 100% pure PHP. It
-uses socket_select() to achieve asynchronus event-driven connection. Currently
-astahttpd v0.1-RC1 support these following features:
+uses socket_select() to achieve non-blocking TCP connection 
+(asynchronus alike). Currently astahttpd v0.1-RC1 support these 
+following features:
 
    - GET, POST, and HEAD methods
    - Alias directories
